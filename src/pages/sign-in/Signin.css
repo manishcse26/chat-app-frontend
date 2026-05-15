@@ -1,0 +1,196 @@
+.signin-container {
+  min-height: 100vh;
+  background: url('https://img.freepik.com/premium-photo/couple-love-beautiful-desktop-background_212944-31581.jpg?w=2000') center/cover no-repeat,
+    radial-gradient(circle at top left, rgba(255, 206, 235, 0.85), rgba(255, 172, 215, 0.75) 30%, rgba(255, 229, 245, 0.8) 65%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.7), rgba(248, 190, 226, 0.45));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signin-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 175, 205, 0.18) 45%,
+    rgba(255, 217, 234, 0.2) 100%
+  );
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+/* ❤️ Heart Bubbles */
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 24px;
+  animation: floatUp 8s linear infinite;
+  z-index: 0;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.heart:nth-child(1)  { left: 5%;  font-size: 80px; animation-duration: 5s;  animation-delay: 0s;   }
+.heart:nth-child(2)  { left: 12%; font-size: 26px; animation-duration: 7s;  animation-delay: 1s;   }
+.heart:nth-child(3)  { left: 20%; font-size: 94px; animation-duration: 4.5s; animation-delay: 2s;  }
+.heart:nth-child(4)  { left: 30%; font-size: 27px; animation-duration: 6s;  animation-delay: 0.5s; }
+.heart:nth-child(5)  { left: 40%; font-size: 30px; animation-duration: 8s;  animation-delay: 1.5s; }
+.heart:nth-child(6)  { left: 50%; font-size: 55px; animation-duration: 5.5s; animation-delay: 3s;  }
+.heart:nth-child(7)  { left: 60%; font-size: 68px; animation-duration: 7s;  animation-delay: 0.8s; }
+.heart:nth-child(8)  { left: 70%; font-size: 55px; animation-duration: 6s;  animation-delay: 2.5s; }
+.heart:nth-child(9)  { left: 80%; font-size: 44px; animation-duration: 5s;  animation-delay: 1.2s; }
+.heart:nth-child(10) { left: 90%; font-size: 88px; animation-duration: 4s;  animation-delay: 0.3s; }
+.heart:nth-child(11) { left: 95%; font-size: 32px; animation-duration: 9s;  animation-delay: 2s;   }
+.heart:nth-child(12) { left: 25%; font-size: 88px; animation-duration: 5s;  animation-delay: 1s;   }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(-5deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-55vh) scale(0.98) rotate(4deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-110vh) scale(0.9) rotate(2deg);
+    opacity: 0;
+  }
+}
+
+.signin-form {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.08)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 24px;
+  padding: 40px 30px;
+  margin-right: 150px;
+  box-shadow: 
+    0 8px 32px rgba(180, 60, 120, 0.25),
+    0 2px 8px rgba(255, 255, 255, 0.15) inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signin-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 20px 50px rgba(180, 60, 120, 0.35),
+    0 2px 8px rgba(255, 255, 255, 0.2) inset;
+}
+
+
+.signin-form {
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.704), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 40px 30px;
+  margin-right: 150px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+              0 2px 8px rgba(255, 255, 255, 0.1) inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signin-form:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25),
+              0 2px 8px rgba(255, 255, 255, 0.15) inset;
+}
+
+
+.signin-form h2 {
+  font-size: 26px;
+  text-align: center;
+  color: rgb(100, 0, 0);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.signin-form div {
+  margin-bottom: 15px;
+}
+
+.signin-form input {
+  width: 100%;
+  background-color: #efefef;
+  border: none;
+  outline: none;
+  padding: 15px 20px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.signin-form button {
+  background-color: rgb(234, 15, 223);
+  width: 100%;
+  color: rgb(19, 11, 11);
+  border: none;
+  outline: none;
+  padding: 13px 30px;
+  border-radius: 5px;
+  margin-top: 7px;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.forgot-password {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.forgot-password a {
+  color: rgb(144, 83, 14);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .signin-form {
+    padding: 20px 15px;
+  }
+
+  .signin-form h2 {
+    font-size: 22px;
+  }
+
+  .signin-form input {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .signin-form button {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .forgot-password {
+    flex-direction: column;
+    align-items: center;
+  }
+}

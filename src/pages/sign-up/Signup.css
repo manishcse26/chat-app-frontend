@@ -1,0 +1,166 @@
+.signup-container {
+  min-height: 100vh;
+  background: url('https://img.freepik.com/premium-photo/couple-love-beautiful-desktop-background_212944-31581.jpg?w=2000') center/cover no-repeat,
+    radial-gradient(circle at top left, rgba(255, 221, 234, 0.85), rgba(255, 180, 209, 0.8) 30%, rgba(255, 246, 250, 0.9) 70%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.7), rgba(255, 204, 230, 0.5));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 192, 221, 0.16) 45%,
+    rgba(255, 225, 238, 0.18) 100%
+  );
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+/* Heart bubble animation */
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 24px;
+  animation: floatUp 8s linear infinite;
+  z-index: 0;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.heart:nth-child(1)  { left: 5%;  font-size: 80px; animation-duration: 6.5s; animation-delay: 0s;   }
+.heart:nth-child(2)  { left: 12%; font-size: 26px; animation-duration: 7.5s; animation-delay: 1s;   }
+.heart:nth-child(3)  { left: 20%; font-size: 94px; animation-duration: 5.8s; animation-delay: 2s;  }
+.heart:nth-child(4)  { left: 30%; font-size: 27px; animation-duration: 6.8s; animation-delay: 0.5s; }
+.heart:nth-child(5)  { left: 40%; font-size: 30px; animation-duration: 8.2s; animation-delay: 1.5s; }
+.heart:nth-child(6)  { left: 50%; font-size: 55px; animation-duration: 6.3s; animation-delay: 3s;  }
+.heart:nth-child(7)  { left: 60%; font-size: 68px; animation-duration: 7.5s; animation-delay: 0.8s; }
+.heart:nth-child(8)  { left: 70%; font-size: 55px; animation-duration: 6.8s; animation-delay: 2.5s; }
+.heart:nth-child(9)  { left: 80%; font-size: 44px; animation-duration: 5.6s; animation-delay: 1.2s; }
+.heart:nth-child(10) { left: 90%; font-size: 88px; animation-duration: 5s;  animation-delay: 0.3s; }
+.heart:nth-child(11) { left: 95%; font-size: 32px; animation-duration: 9.2s; animation-delay: 2s;   }
+.heart:nth-child(12) { left: 25%; font-size: 88px; animation-duration: 6s;  animation-delay: 4s;   }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1) rotate(-5deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-55vh) scale(0.98) rotate(4deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-110vh) scale(0.9) rotate(2deg);
+    opacity: 0;
+  }
+}
+
+.signup-form {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.18));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(255, 255, 255, 0.12) inset;
+}
+
+.signup-form h2 {
+  font-size: 26px;
+  text-align: center;
+  color: rgb(107, 5, 5);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.signup-form div {
+  margin-bottom: 15px;
+}
+
+.signup-form input {
+  width: 100%;
+  background-color: #efefef;
+  border: none;
+  outline: none;
+  padding: 15px 20px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.signup-form span {
+  color: red;
+  font-size: 12px;
+}
+
+.signup-form button {
+  background-color: rgb(243, 21, 158);
+  width: 100%;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 13px 30px;
+  border-radius: 5px;
+  margin-top: 7px;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#gender {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  outline: 0;
+  background-color: #efefef;
+  border-radius: 4px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.forgot-password a {
+  color: green;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .signup-form {
+    padding: 20px 15px;
+  }
+
+  .signup-form h2 {
+    font-size: 22px;
+  }
+
+  .signup-form input {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .signup-form button {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  #gender {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

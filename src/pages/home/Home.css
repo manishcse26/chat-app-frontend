@@ -1,0 +1,23 @@
+.home {
+  height: 100dvh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  background-color: #e9f3ec;
+  position: fixed;
+  overflow: hidden;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .home {
+    grid-template-rows: 60px 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .home {
+    grid-template-rows: 60px 1fr;
+  }
+}
