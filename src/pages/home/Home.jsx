@@ -17,7 +17,6 @@ ringtone.loop = true;
 function Home() {
   const [onlineusers, setOnlineUsers] = useState([]);
   const { loggedInUser } = useContext(loggedInUserContext);
-
   const [callState, setCallState] = useState(null);
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
@@ -26,16 +25,12 @@ function Home() {
   const callStateRef = useRef(null);
   const endCallRef = useRef(null);
 
-  useEffect(() => {
-    callStateRef.current = callState;
-  }, [callState]);
+  useEffect(() => { callStateRef.current = callState; }, [callState]);
 
   useEffect(() => {
     const setup = async () => {
       if ("serviceWorker" in navigator) {
-        try {
-          await navigator.serviceWorker.register("/sw.js");
-        } catch (e) {}
+        try { await navigator.serviceWorker.register("/sw.js"); } catch (e) {}
       }
       if (Notification.permission !== "granted") {
         await Notification.requestPermission();
@@ -47,25 +42,13 @@ function Home() {
   const showNotification = (title, body, icon) => {
     if (Notification.permission === "granted") {
       navigator.serviceWorker.ready.then((reg) => {
-        reg.showNotification(title, {
-          body,
-          icon: icon || "/vite.svg",
-          badge: "/vite.svg",
-          vibrate: [500, 300, 500],
-        });
-      }).catch(() => {
-        new Notification(title, { body, icon: icon || "/vite.svg" });
-      });
+        reg.showNotification(title, { body, icon: icon || "/vite.svg", badge: "/vite.svg", vibrate: [500, 300, 500] });
+      }).catch(() => { new Notification(title, { body, icon: icon || "/vite.svg" }); });
     }
   };
 
-  const vibratePhone = () => {
-    if (navigator.vibrate) navigator.vibrate([500, 300, 500, 300, 500]);
-  };
-
-  const stopVibrate = () => {
-    if (navigator.vibrate) navigator.vibrate(0);
-  };
+  const vibratePhone = () => { if (navigator.vibrate) navigator.vibrate([500, 300, 500, 300, 500]); };
+  const stopVibrate = () => { if (navigator.vibrate) navigator.vibrate(0); };
 
   const createPeer = (targetId) => {
     const peer = new RTCPeerConnection({
@@ -82,7 +65,7 @@ function Home() {
     peer.ontrack = (e) => {
       if (remoteVideoRef.current && e.streams[0]) {
         remoteVideoRef.current.srcObject = e.streams[0];
-        remoteVideoRef.current.play().catch(() => {});
+        setTimeout(() => { remoteVideoRef.current?.play().catch(() => {}); }, 300);
       }
     };
     return peer;
@@ -96,9 +79,7 @@ function Home() {
   };
 
   const endCall = () => {
-    ringtone.pause();
-    ringtone.currentTime = 0;
-    stopVibrate();
+    ringtone.pause(); ringtone.currentTime = 0; stopVibrate();
     if (peerRef.current) { peerRef.current.close(); peerRef.current = null; }
     if (localVideoRef.current?.srcObject) {
       localVideoRef.current.srcObject.getTracks().forEach((t) => t.stop());
@@ -119,16 +100,12 @@ function Home() {
 
   useEffect(() => {
     if (!loggedInUser?._id) return;
-
     socket.emit("join-room", loggedInUser._id);
-
     socket.on("online", (onlineUsers) => setOnlineUsers(onlineUsers));
     socket.on("offline", (filteredIds) => setOnlineUsers(filteredIds));
-
     socket.on("received-message", (data) => {
       showNotification("💬 New Message — Manish Chat", data.message || "📷 Image received", null);
     });
-
     socket.on("incoming-call", (data) => {
       iceCandidateQueue.current = [];
       ringtone.play().catch(() => {});
@@ -136,7 +113,6 @@ function Home() {
       showNotification(`📞 Incoming ${data.callType === "video" ? "Video" : "Audio"} Call`, `${data.callerName} is calling you...`, data.callerPic);
       setCallState({ type: data.callType, direction: "incoming", callerName: data.callerName, callerPic: data.callerPic, offer: data.offer, from: data.from });
     });
-
     socket.on("call-accepted", async (data) => {
       ringtone.pause(); ringtone.currentTime = 0; stopVibrate();
       if (peerRef.current) {
@@ -147,19 +123,14 @@ function Home() {
         } catch (e) {}
       }
     });
-
     socket.on("call-rejected", () => endCallRef.current());
     socket.on("call-ended", () => endCallRef.current());
-
     socket.on("ice-candidate", async (data) => {
       if (!data.candidate) return;
       if (peerRef.current?.remoteDescription) {
         try { await peerRef.current.addIceCandidate(new RTCIceCandidate(data.candidate)); } catch (e) {}
-      } else {
-        iceCandidateQueue.current.push(data.candidate);
-      }
+      } else { iceCandidateQueue.current.push(data.candidate); }
     });
-
     return () => {
       socket.off("online"); socket.off("offline"); socket.off("received-message");
       socket.off("incoming-call"); socket.off("call-accepted"); socket.off("call-rejected");
@@ -172,7 +143,10 @@ function Home() {
     try {
       const constraints = callType === "video" ? { video: true, audio: true } : { video: false, audio: true };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (localVideoRef.current) { localVideoRef.current.srcObject = stream; localVideoRef.current.play().catch(() => {}); }
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+        setTimeout(() => { localVideoRef.current?.play().catch(() => {}); }, 300);
+      }
       const peer = createPeer(targetUser.id);
       peerRef.current = peer;
       stream.getTracks().forEach((track) => peer.addTrack(track, stream));
@@ -190,7 +164,10 @@ function Home() {
     try {
       const constraints = cs.type === "video" ? { video: true, audio: true } : { video: false, audio: true };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      if (localVideoRef.current) { localVideoRef.current.srcObject = stream; localVideoRef.current.play().catch(() => {}); }
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+        setTimeout(() => { localVideoRef.current?.play().catch(() => {}); }, 300);
+      }
       const peer = createPeer(cs.from);
       peerRef.current = peer;
       stream.getTracks().forEach((track) => peer.addTrack(track, stream));
