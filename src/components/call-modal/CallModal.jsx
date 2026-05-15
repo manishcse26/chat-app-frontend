@@ -11,10 +11,12 @@ function CallModal({
   const [seconds, setSeconds] = useState(0);
   const isIncoming = callState.direction === "incoming";
   const isVideo = callState.type === "video";
+  const isActive = callState.direction === "active";
+  const isOutgoing = callState.direction === "outgoing";
 
   useEffect(() => {
     let timer;
-    if (callState.direction === "active") {
+    if (isActive) {
       timer = setInterval(() => setSeconds((s) => s + 1), 1000);
     }
     return () => clearInterval(timer);
@@ -47,27 +49,31 @@ function CallModal({
         boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
       }}>
 
-        <img
-          src={callState.callerPic || "https://cdn-icons-png.flaticon.com/512/4122/4122823.png"}
-          alt={callState.callerName}
-          style={{
-            width: "68px",
-            height: "68px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "3px solid #4FC3F7",
-            marginBottom: "10px",
-          }}
-        />
-
-        <h3 style={{ margin: "0 0 4px", fontSize: "18px" }}>
-          {callState.callerName}
-        </h3>
+        {/* Profile pic — sirf incoming ya outgoing mein, active mein nahi */}
+        {!isActive && (
+          <>
+            <img
+              src={callState.callerPic || "https://cdn-icons-png.flaticon.com/512/4122/4122823.png"}
+              alt={callState.callerName}
+              style={{
+                width: "68px",
+                height: "68px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                border: "3px solid #4FC3F7",
+                marginBottom: "10px",
+              }}
+            />
+            <h3 style={{ margin: "0 0 4px", fontSize: "18px" }}>
+              {callState.callerName}
+            </h3>
+          </>
+        )}
 
         <p style={{ fontSize: "13px", color: "#aaa", margin: "0 0 14px" }}>
           {isIncoming
             ? `Incoming ${isVideo ? "video" : "audio"} call...`
-            : callState.direction === "outgoing"
+            : isOutgoing
             ? `Calling... (${isVideo ? "Video" : "Audio"})`
             : `${isVideo ? "Video" : "Audio"} call • ${formatDuration(seconds)}`}
         </p>
@@ -81,8 +87,9 @@ function CallModal({
             borderRadius: "12px",
             overflow: "hidden",
             background: "#000",
+            minHeight: (isOutgoing || isActive) ? "280px" : "0px",
           }}>
-            {/* Remote video — poora bada */}
+            {/* Remote video — active hone ke baad dikhega */}
             <video
               ref={remoteVideoRef}
               autoPlay
@@ -91,28 +98,32 @@ function CallModal({
                 width: "100%",
                 height: "280px",
                 objectFit: "cover",
-                display: "block",
+                display: isActive ? "block" : "none",
                 borderRadius: "12px",
               }}
             />
-            {/* Local video — chhota corner mein */}
-            <video
-              ref={localVideoRef}
-              autoPlay
-              playsInline
-              muted
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                width: "90px",
-                height: "68px",
-                borderRadius: "8px",
-                objectFit: "cover",
-                border: "2px solid #4FC3F7",
-                background: "#222",
-              }}
-            />
+
+            {/* Local video — outgoing aur active dono mein dikhega */}
+            {(isOutgoing || isActive) && (
+              <video
+                ref={localVideoRef}
+                autoPlay
+                playsInline
+                muted
+                style={{
+                  position: isActive ? "absolute" : "relative",
+                  bottom: isActive ? "10px" : "auto",
+                  right: isActive ? "10px" : "auto",
+                  width: isActive ? "90px" : "100%",
+                  height: isActive ? "68px" : "280px",
+                  borderRadius: "8px",
+                  objectFit: "cover",
+                  border: "2px solid #4FC3F7",
+                  background: "#222",
+                  display: "block",
+                }}
+              />
+            )}
           </div>
         )}
 
